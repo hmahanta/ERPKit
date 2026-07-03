@@ -140,15 +140,15 @@ That's the whole integration: no bespoke parser, no hand-written validation code
 ERPKit follows a **hexagonal (ports-and-adapters) architecture**. The core domain — metadata interpretation, validation orchestration, transformation logic — has no knowledge of *which* file format it's reading or *which* database it's writing to. Those concerns live in adapters behind well-defined ports:
 
 ```
-                         ┌─────────────────────────┐
+                         ┌──────────────────────────┐
                          │      Metadata Layer      │
                          │   (YAML / JSON schemas)  │
                          └────────────┬─────────────┘
                                       │
  ┌───────────┐     ┌──────────────┐  │  ┌──────────────┐     ┌────────────┐
- │  Readers  │────▶│              │◀─┴─▶│              │────▶│  Loaders   │
+ │  Readers  │────▶│              │─┴─▶│              │────▶│  Loaders   │
  │  (CSV,    │     │  Core Domain │     │  Validation  │     │ (Oracle,   │
- │  fixed-   │────▶│    Engine    │────▶│  & Transform │────▶│  extensible│
+ │  fixed-   │────▶│    Engine    │────▶│  & Transform │────▶│extensible│
  │  width,…) │     │              │     │   Pipeline   │     │  targets)  │
  └───────────┘     └──────┬───────┘     └──────────────┘     └────────────┘
                           │
