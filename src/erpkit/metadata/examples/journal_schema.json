@@ -1,0 +1,50 @@
+{
+  "entity": "Journal",
+  "version": "1.0.0",
+  "description": "GL journal line schema demonstrating the double-entry balance rule, regex, and PII masking.",
+  "columns": [
+    { "name": "Journal", "dtype": "string" },
+    { "name": "LineNumber", "dtype": "int" },
+    { "name": "GLAccount", "dtype": "string" },
+    { "name": "Amount", "dtype": "float" },
+    { "name": "PostedDate", "dtype": "date" },
+    { "name": "BankAccountNumber", "dtype": "string" }
+  ],
+  "validation_rules": [
+    {
+      "rule": "not_null",
+      "columns": ["Journal", "LineNumber", "Amount"],
+      "severity": "error"
+    },
+    {
+      "rule": "duplicate",
+      "columns": ["Journal", "LineNumber"],
+      "severity": "error"
+    },
+    {
+      "rule": "regex",
+      "column": "Journal",
+      "pattern": "JRN-\\d+",
+      "severity": "error"
+    },
+    {
+      "rule": "balance",
+      "group_by": ["Journal"],
+      "amount_column": "Amount",
+      "tolerance": 0.01,
+      "severity": "error"
+    },
+    {
+      "rule": "date",
+      "column": "PostedDate",
+      "format": "%Y-%m-%d",
+      "min_date": "2020-01-01",
+      "max_date": "today",
+      "severity": "warning"
+    }
+  ],
+  "transformation_rules": [
+    { "op": "trim", "columns": ["Journal", "GLAccount"] },
+    { "op": "mask", "columns": ["BankAccountNumber"] }
+  ]
+}

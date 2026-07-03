@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+message: >-
+  If you use ERPKit in academic research, a technical publication, or a
+  derivative work, please cite it using the metadata below.
+title: "ERPKit: A Metadata-Driven Framework for Enterprise ERP Integration,
+  Financial Validation, and Transaction Processing"
+abstract: >-
+  ERPKit is an open-source Python framework that provides metadata-driven
+  abstractions for enterprise transaction validation, financial-grade
+  business rule evaluation, reconciliation, multi-step transaction state
+  management, approval workflows, and audit trail generation. It is
+  designed to complement, rather than replace, existing Python data and
+  web ecosystem tools such as Polars, Pydantic, SQLAlchemy, and FastAPI,
+  by modeling enterprise business transactions as first-class, typed
+  domain objects rather than generic datasets.
+type: software
+authors:
+  - name: "The ERPKit Authors"
+    website: "https://github.com/erpkit-project/erpkit"
+repository-code: "https://github.com/erpkit-project/erpkit"
+url: "https://erpkit.readthedocs.io"
+license: Apache-2.0
+version: 0.1.0
+date-released: "2026-07-03"
+keywords:
+  - erp
+  - enterprise-software
+  - python
+  - data-validation
+  - financial-reconciliation
+  - metadata-driven-architecture
+  - transaction-processing
+  - domain-driven-design
+  - polars
+  - audit-trail
+identifiers:
+  - type: url
+    value: "https://github.com/erpkit-project/erpkit"
+    description: "ERPKit source code repository"
+preferred-citation:
+  type: software
+  title: "ERPKit: A Metadata-Driven Framework for Enterprise ERP
+    Integration, Financial Validation, and Transaction Processing"
+  authors:
+    - name: "The ERPKit Authors"
+  version: 0.1.0
+  date-released: "2026-07-03"
+  url: "https://github.com/erpkit-project/erpkit"
+  license: Apache-2.0

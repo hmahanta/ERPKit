@@ -1,0 +1,57 @@
+{
+  "entity": "Invoice",
+  "version": "1.0.0",
+  "description": "AP invoice extract schema: currency, range, and foreign-key checks against the Supplier master.",
+  "columns": [
+    { "name": "InvoiceID", "dtype": "string" },
+    { "name": "Vendor", "dtype": "string" },
+    { "name": "Currency", "dtype": "string" },
+    { "name": "Amount", "dtype": "float" },
+    { "name": "InvoiceDate", "dtype": "date" },
+    { "name": "GLAccount", "dtype": "string" }
+  ],
+  "validation_rules": [
+    {
+      "rule": "required",
+      "columns": ["InvoiceID", "Vendor", "Currency"],
+      "severity": "error"
+    },
+    {
+      "rule": "duplicate",
+      "columns": ["InvoiceID", "Vendor"],
+      "severity": "error"
+    },
+    {
+      "rule": "currency",
+      "column": "Currency",
+      "allowed": ["USD", "EUR", "GBP"],
+      "severity": "error"
+    },
+    {
+      "rule": "range",
+      "column": "Amount",
+      "minimum": 0,
+      "maximum": 100000,
+      "severity": "error"
+    },
+    {
+      "rule": "foreign_key",
+      "column": "Vendor",
+      "reference": { "entity": "Supplier", "column": "SupplierID" },
+      "severity": "error"
+    },
+    {
+      "rule": "date",
+      "column": "InvoiceDate",
+      "format": "%Y-%m-%d",
+      "min_date": "2020-01-01",
+      "max_date": "today",
+      "severity": "warning"
+    }
+  ],
+  "transformation_rules": [
+    { "op": "trim", "columns": ["Vendor", "Currency", "GLAccount"] },
+    { "op": "uppercase", "columns": ["Currency"] },
+    { "op": "round", "columns": ["Amount"], "precision": 2 }
+  ]
+}

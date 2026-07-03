@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "Ask a Question (GitHub Discussions)"
+    url: "https://github.com/erpkit-project/erpkit/discussions/categories/q-a"
+    about: "Usage questions are best asked here — searchable by the whole community."
+  - name: "Design Proposal (GitHub Discussions)"
+    url: "https://github.com/erpkit-project/erpkit/discussions/categories/design-proposals"
+    about: "Proposing a change to a core interface? Start with a design discussion per CONTRIBUTING.md."
+  - name: "Report a Security Vulnerability"
+    url: "https://github.com/erpkit-project/erpkit/security/advisories/new"
+    about: "Please do not report security issues through public issues. See SECURITY.md."

@@ -1,0 +1,52 @@
+{
+  "entity": "Supplier",
+  "version": "1.0.0",
+  "description": "ERP-neutral supplier / vendor master schema for MetaFlow-driven validation.",
+  "columns": [
+    { "name": "SupplierID", "dtype": "string" },
+    { "name": "SupplierName", "dtype": "string" },
+    { "name": "TaxID", "dtype": "string" },
+    { "name": "Country", "dtype": "string" },
+    { "name": "PaymentTerms", "dtype": "string" },
+    { "name": "BankAccountNumber", "dtype": "string" },
+    { "name": "Status", "dtype": "string" },
+    { "name": "CreatedDate", "dtype": "date" }
+  ],
+  "validation_rules": [
+    {
+      "rule": "required",
+      "columns": ["SupplierID", "SupplierName", "TaxID", "Country"],
+      "severity": "error"
+    },
+    {
+      "rule": "duplicate",
+      "columns": ["SupplierID"],
+      "severity": "error"
+    },
+    {
+      "rule": "regex",
+      "column": "SupplierID",
+      "pattern": "V-\\d{3,6}",
+      "severity": "error"
+    },
+    {
+      "rule": "regex",
+      "column": "Country",
+      "pattern": "[A-Z]{2}",
+      "severity": "warning"
+    },
+    {
+      "rule": "date",
+      "column": "CreatedDate",
+      "format": "%Y-%m-%d",
+      "min_date": "2000-01-01",
+      "max_date": "today",
+      "severity": "warning"
+    }
+  ],
+  "transformation_rules": [
+    { "op": "trim", "columns": ["SupplierName", "TaxID", "Country", "Status"] },
+    { "op": "uppercase", "columns": ["Country", "Status"] },
+    { "op": "mask", "columns": ["BankAccountNumber"] }
+  ]
+}

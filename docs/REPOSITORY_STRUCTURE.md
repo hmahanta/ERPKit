@@ -1,0 +1,124 @@
+# ERPKit Repository Structure
+
+This document shows the complete, publication-ready repository layout for
+ERPKit, following the conventions used by comparable Python open-source
+projects (FastAPI, Polars, SQLAlchemy, Requests). It combines the
+**existing application code** (already implemented; not regenerated here)
+with the **repository infrastructure** described in this document set.
+
+Paths marked `[existing]` are application code and are shown only to
+indicate where they fit in the overall layout — their contents are not part
+of this infrastructure delivery. Every other path is a file generated as
+part of this repository-infrastructure task.
+
+```
+erpkit/
+├── .github/
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   ├── feature_request.md
+│   │   ├── question.md
+│   │   └── config.yml
+│   ├── workflows/
+│   │   ├── ci.yml
+│   │   └── publish.yml
+│   └── PULL_REQUEST_TEMPLATE.md
+│
+├── docs/
+│   ├── BADGES.md
+│   ├── LICENSE_RATIONALE.md
+│   ├── REPOSITORY_STRUCTURE.md
+│   ├── architecture/                  [existing — architecture notes per module]
+│   ├── examples/                      [existing — worked examples]
+│   └── api/                           [existing — generated API reference]
+│
+├── src/
+│   └── erpkit/                        [existing — application code]
+│       ├── __init__.py
+│       ├── validator.py
+│       ├── metaflow.py
+│       ├── audit.py
+│       ├── approvals.py
+│       ├── transactions.py
+│       ├── metadata.py
+│       ├── rules.py
+│       ├── adapters/
+│       ├── config.py
+│       └── logging.py
+│
+├── tests/                             [existing — test suite mirroring src/erpkit/]
+│   ├── conftest.py
+│   ├── fixtures/
+│   │   └── rules/
+│   ├── test_validator.py
+│   ├── test_metaflow.py
+│   ├── test_audit.py
+│   ├── test_approvals.py
+│   ├── test_transactions.py
+│   ├── test_metadata.py
+│   ├── test_rules.py
+│   └── test_adapters.py
+│
+├── .gitignore                         [existing]
+├── .pre-commit-config.yaml            [existing — or add per CONTRIBUTING.md tooling]
+├── pyproject.toml                     [existing — package metadata, Ruff/Black/MyPy config]
+│
+├── AUTHORS.md
+├── ACKNOWLEDGEMENTS.md
+├── CHANGELOG.md
+├── CITATION.cff
+├── CODE_OF_CONDUCT.md
+├── CONTRIBUTING.md
+├── GOVERNANCE.md
+├── LICENSE
+├── README.md                          [existing — add docs/BADGES.md block near the top]
+├── ROADMAP.md
+├── SECURITY.md
+└── SUPPORT.md
+```
+
+## Placement Rationale
+
+- **Root-level community health files** (`LICENSE`, `CODE_OF_CONDUCT.md`,
+  `CONTRIBUTING.md`, `SECURITY.md`, `SUPPORT.md`) are placed at the
+  repository root because GitHub specifically detects files in this
+  location to populate the repository's "Community Standards" checklist
+  and to surface `SECURITY.md` under the Security tab.
+- **`.github/`** holds GitHub-specific automation and templates —
+  issue/PR templates and Actions workflows — consistent with GitHub's own
+  convention and with FastAPI's and Polars' repository layouts.
+- **`docs/`** holds project documentation, including the reference material
+  generated as part of this infrastructure delivery (`BADGES.md`,
+  `LICENSE_RATIONALE.md`) alongside existing architecture and example
+  documentation.
+- **`src/erpkit/` (src-layout)** is used rather than a flat `erpkit/`
+  package at the repository root, matching the layout convention used by
+  Polars and modern packaging guidance (`src`-layout avoids accidentally
+  importing the package from the working directory instead of the
+  installed distribution during testing). This is existing application
+  code and is not altered by this task.
+- **`AUTHORS.md` vs. `CONTRIBUTORS`**: `AUTHORS.md` is used as the single
+  file recognizing Founder, Maintainers, and Contributors together (see
+  `GOVERNANCE.md` for how these roles are defined), rather than splitting
+  across multiple files, to keep attribution in one discoverable place.
+- **`CITATION.cff`** is placed at the repository root because GitHub
+  specifically detects a root-level `CITATION.cff` to render the "Cite this
+  repository" button in the repository sidebar.
+- **`ROADMAP.md` and `GOVERNANCE.md`** are kept as root-level files rather
+  than nested under `docs/` because both are frequently linked from the
+  README and issue templates, and root-level placement matches where
+  contributors expect to find them (consistent with Kubernetes-ecosystem
+  and CNCF project conventions).
+
+## What Is Intentionally Not Included
+
+- No `Dockerfile` or container manifests — ERPKit is a library, not a
+  deployable service; adopting applications containerize their own use of
+  it.
+- No `docs/` static-site generator scaffolding (e.g., a full MkDocs or
+  Sphinx configuration tree) is generated here, since the existing `docs/`
+  content and its build tooling are treated as existing project assets
+  outside this task's scope.
+- No `CODEOWNERS` file is generated by default; add one under `.github/`
+  once the Maintainer/Reviewer set in `AUTHORS.md` is populated, mapping
+  paths (e.g., `src/erpkit/adapters/` ) to the relevant reviewers.
