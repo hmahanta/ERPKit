@@ -1,4 +1,7 @@
 # ERPKit
+<p align="center">
+  <img src="assets/banner.png" alt="ERPKit Banner" width="100%">
+</p>
 
 **A metadata-driven data integration framework for enterprise ERP ecosystems.**
 
